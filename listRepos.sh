@@ -3,7 +3,7 @@
 CACHE_FILE="$HOME/.cache/aghh/repocache.txt"
 
 refresh_repo_list() {
-    ./findGitRepos.sh
+    bash ./findGitRepos.sh
     dialog --msgbox "Repo list refreshed." 10 50
 }
 
