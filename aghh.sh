@@ -13,14 +13,34 @@ fi
 # Show selected repo for 3 seconds
 dialog --msgbox "You selected: $SELECTED_REPO" 10 50
 
-# Step 2: Run navbar.sh to show menu and get numeric choice
-NAV_CHOICE=$(bash ./navbar.sh)
+while true; do
+  # Step 2: Run navbar.sh to show menu and get numeric choice
+  NAV_CHOICE=$(bash ./navbar.sh)
 
-# Step 3: Clear screen and print the string value associated with the menu number
-clear
+  clear
 
-if [ -n "$NAV_CHOICE" ] && [ -n "${MENU_MAP[$NAV_CHOICE]}" ]; then
-    echo "You chose: ${MENU_MAP[$NAV_CHOICE]}"
-else
-    echo "Invalid or no selection made."
-fi
+  if [ -z "$NAV_CHOICE" ] || [ -z "${MENU_MAP[$NAV_CHOICE]}" ]; then
+    echo "Invalid or no selection made. Returning to menu..."
+    continue
+  fi
+
+  # If user chooses Exit (mapped as "exit"), break the loop
+  if [ "${MENU_MAP[$NAV_CHOICE]}" = "exit" ]; then
+    echo "Exiting program. Goodbye!"
+    break
+  fi
+
+  # Run the mapped script using bash
+  SCRIPT_PATH="${MENU_MAP[$NAV_CHOICE]}"
+  if [ -f "$SCRIPT_PATH" ]; then
+    bash "$SCRIPT_PATH"
+  else
+    echo "Script '$SCRIPT_PATH' not found!"
+  fi
+
+  # Pause before returning to menu
+  echo
+  bash ./navbar.sh
+  clear
+done
+
