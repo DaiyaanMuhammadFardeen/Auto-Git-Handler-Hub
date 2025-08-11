@@ -1,0 +1,109 @@
+# Run-time configuration file for dialog (Atom One Dark inspired)
+
+aspect = 0
+separate_widget = ""
+tab_len = 0
+visit_items = OFF
+
+# Disable shadow completely
+use_shadow = OFF
+use_colors = ON
+
+# Background dark gray -> use BLACK
+screen_color = (WHITE,BLACK,ON)
+
+# Shadow color (irrelevant since shadow disabled, but keep black on black)
+shadow_color = (BLUE,BLUE,OFF)
+
+# Dialog box color: light gray text on dark bg
+dialog_color = (WHITE,BLACK,OFF)
+
+# Dialog box title color: blue accent on dark bg
+title_color = (BLUE,BLACK,ON)
+
+# Dialog box border color: blue accent border
+border_color = (BLUE,BLACK,ON)
+
+# Active button color: black text on blue background
+button_active_color = (BLACK,BLUE,ON)
+
+# Inactive button color: light gray on black bg
+button_inactive_color = (WHITE,BLACK,ON)
+
+# Active button key color: black text on blue background
+button_key_active_color = (BLACK,BLUE,ON)
+
+# Inactive button key color: red accent on black bg
+button_key_inactive_color = (RED,BLACK,OFF)
+
+# Active button label color: yellow accent on blue bg
+button_label_active_color = (BLACK,BLUE,ON)
+
+# Inactive button label color: light gray on black bg
+button_label_inactive_color = (WHITE,BLACK,ON)
+
+# Input box color: light gray on black bg
+inputbox_color = (WHITE,BLACK,OFF)
+
+# Input box border color: blue accent border
+inputbox_border_color = (BLUE,BLACK,OFF)
+
+# Search box color: light gray on black bg
+searchbox_color = (WHITE,BLACK,OFF)
+
+# Search box title color: blue accent on black bg
+searchbox_title_color = (BLUE,BLACK,ON)
+
+# Search box border color: blue accent border
+searchbox_border_color = (BLUE,BLACK,ON)
+
+# File position indicator color: blue accent on black bg
+position_indicator_color = (BLUE,BLACK,ON)
+
+# Menu box color: light gray on black bg
+menubox_color = (WHITE,BLACK,OFF)
+
+# Menu box border color: blue accent border
+menubox_border_color = (BLUE,BLACK,ON)
+
+# Item color: light gray on black bg
+item_color = (BLUE,BLACK,ON)
+
+# Selected item color: black text on blue bg
+item_selected_color = (BLACK,BLUE,ON)
+
+# Tag color: blue accent on black bg
+tag_color = (WHITE,BLACK,ON)
+
+# Selected tag color: yellow accent on blue bg
+tag_selected_color = (BLACK,BLUE,ON)
+
+# Tag key color: red accent on black bg
+tag_key_color = (RED,BLACK,OFF)
+
+# Selected tag key color: red accent on blue bg
+tag_key_selected_color = (RED,BLUE,ON)
+
+# Check box color: light gray on black bg
+check_color = (WHITE,BLACK,OFF)
+
+# Selected check box color: black text on blue bg
+check_selected_color = (BLACK,BLUE,ON)
+
+# Up arrow color: green accent on black bg
+uarrow_color = (GREEN,BLACK,ON)
+
+# Down arrow color: green accent on black bg
+darrow_color = (GREEN,BLACK,ON)
+
+# Item help-text color: light gray on black bg
+itemhelp_color = (WHITE,BLACK,OFF)
+
+# Active form text color: white on blue bg
+form_active_text_color = (WHITE,BLUE,ON)
+
+# Form text color: white on black bg
+form_text_color = (WHITE,BLACK,ON)
+
+# Readonly form item color: cyan accent on black bg
+form_item_readonly_color = (CYAN,BLACK,ON)
