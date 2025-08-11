@@ -19,7 +19,7 @@ select_repo() {
         MENU_ITEMS="$MENU_ITEMS $repo_path $repo_name"
     done < "$CACHE_FILE"
 
-    CHOICE=$(dialog --title "Select Git Repo" --menu "Choose a repository:" 25 70 15 $MENU_ITEMS 3>&1 1>&2 2>&3)
+    CHOICE=$(dialog --title "Select Git Repo" --menu "Choose a repository:" 35 110 25 $MENU_ITEMS 3>&1 1>&2 2>&3)
     exitstatus=$?
 
     if [ "$exitstatus" = 0 ]; then
