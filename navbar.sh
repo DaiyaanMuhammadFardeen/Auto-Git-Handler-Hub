@@ -15,7 +15,7 @@ unset IFS
 sorted_keys=($(printf "%s\n" "${!MENU_MAP[@]}" | sort -n))
 MENU_ARGS=()
 for key in "${sorted_keys[@]}"; do
-  MENU_ARGS+=("$key" "${MENU_MAP[$key]}")
+  MENU_ARGS+=("$key" "${MENU_MAP_SHOW[$key]}")
 done
 
 CHOICE=$(dialog --title "Main Navigation" --menu "Select an option:" 20 60 12 "${MENU_ARGS[@]}" 3>&1 1>&2 2>&3)
