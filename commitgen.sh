@@ -7,6 +7,6 @@ commit_msg=$(python generate_commit.py diff.txt)
 
 # Commit with generated message
 #
-echo "$commit_msg"
+git commit -m "$commit_msg - by GPT2"
 
 rm -rf diff.txt
