@@ -8,10 +8,7 @@ while true; do
         --menu "Select an automation to run:" 20 70 10 \
         1 "Smart commit all files using GPT2" \
         2 "Git Operations" \
-        3 "Timed auto push" \
-        4 "Auto run tests" \
-        5 "Auto Docker Build" \
-        6 "Back to Main Menu" \
+        3 "Back to Main Menu" \
         3>&1 1>&2 2>&3)
 
     EXIT_STATUS=$?
@@ -43,15 +40,6 @@ while true; do
         2)
             # Launch git operations script, passing cache file
             bash "$(dirname "$0")/gitMenu.sh" "$CACHE_FILE"
-            ;;
-        3)
-            echo "Running Timed auto push..."
-            ;;
-        4)
-            echo "Running Auto run tests..."
-            ;;
-        5)
-            echo "Running Auto Docker Build..."
             ;;
     esac
 done
