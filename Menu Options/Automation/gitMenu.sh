@@ -47,11 +47,15 @@ while true; do
         2) # Pull from branch (remote)
             MENU_ITEMS=()
             while IFS= read -r branch; do
-                branch_clean=$(echo "$branch" | sed 's|origin/||')
+                # Skip symbolic refs like origin/HEAD -> origin/main
+                [[ "$line" =~ "->" ]] && continue
+                branch_clean=$(echo "$line" | sed 's|origin/||')
                 MENU_ITEMS+=("$branch_clean" "$branch_clean")
-            done < <(git branch -r | grep -v '->')
-            
+            done < <(git branch -r)
+
             BRANCH=$(dialog --menu "Select remote branch to pull from:" 20 60 15 "${MENU_ITEMS[@]}" 3>&1 1>&2 2>&3)
+
+            # Pull if branch selected
             if [ -n "$BRANCH" ]; then
                 OUTPUT=$(git pull origin "$BRANCH" 2>&1)
                 dialog --msgbox "$OUTPUT" 30 90
@@ -63,7 +67,7 @@ while true; do
             while IFS= read -r branch; do
                 MENU_ITEMS+=("$branch" "$branch")
             done < <(git branch --format="%(refname:short)")
-            
+
             BRANCH=$(dialog --menu "Select branch to push to:" 20 60 15 "${MENU_ITEMS[@]}" 3>&1 1>&2 2>&3)
             if [ -n "$BRANCH" ]; then
                 OUTPUT=$(git push origin "$BRANCH" 2>&1)
@@ -76,7 +80,7 @@ while true; do
             while IFS= read -r branch; do
                 MENU_ITEMS+=("$branch" "$branch")
             done < <(git branch --format="%(refname:short)")
-            
+
             BRANCH=$(dialog --menu "Select branch to switch to:" 20 60 15 "${MENU_ITEMS[@]}" 3>&1 1>&2 2>&3)
             if [ -n "$BRANCH" ]; then
                 OUTPUT=$(git checkout "$BRANCH" 2>&1)
@@ -92,7 +96,7 @@ while true; do
                 MSG=$(echo "$line" | cut -d' ' -f2-)
                 MENU_ITEMS+=("$HASH" "$MSG")
             done <<< "$COMMITS"
-            
+
             COMMIT=$(dialog --menu "Select commit to checkout:" 30 100 20 "${MENU_ITEMS[@]}" 3>&1 1>&2 2>&3)
             if [ -n "$COMMIT" ]; then
                 OUTPUT=$(git checkout "$COMMIT" 2>&1)
