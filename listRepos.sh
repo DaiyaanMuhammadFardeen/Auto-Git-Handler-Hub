@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE_FILE="$HOME/.cache/aghh/repocache.txt"
+. ./globals.sh
 
 refresh_repo_list() {
     bash ./findGitRepos.sh
