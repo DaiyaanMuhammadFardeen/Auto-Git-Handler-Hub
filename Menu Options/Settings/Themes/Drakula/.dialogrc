@@ -1,0 +1,109 @@
+# Run-time configuration file for dialog (Dracula inspired)
+
+aspect = 0
+separate_widget = ""
+tab_len = 0
+visit_items = OFF
+
+# Disable shadow
+use_shadow = OFF
+use_colors = ON
+
+# Background dark
+screen_color = (WHITE,BLACK,ON)
+
+# Shadow color (irrelevant)
+shadow_color = (BLACK,BLACK,OFF)
+
+# Dialog box color: light gray text on black bg
+dialog_color = (WHITE,BLACK,OFF)
+
+# Dialog box title color: purple accent
+title_color = (MAGENTA,BLACK,ON)
+
+# Dialog box border color: purple accent
+border_color = (MAGENTA,BLACK,ON)
+
+# Active button color: black text on purple background
+button_active_color = (BLACK,MAGENTA,ON)
+
+# Inactive button color: light gray on black bg
+button_inactive_color = (WHITE,BLACK,OFF)
+
+# Active button key color: black text on purple background
+button_key_active_color = (BLACK,MAGENTA,ON)
+
+# Inactive button key color: red accent
+button_key_inactive_color = (RED,BLACK,ON)
+
+# Active button label color: black on purple
+button_label_active_color = (BLACK,MAGENTA,ON)
+
+# Inactive button label color: light gray on black
+button_label_inactive_color = (WHITE,BLACK,ON)
+
+# Input box color: light gray on black bg
+inputbox_color = (WHITE,BLACK,OFF)
+
+# Input box border color: purple accent
+inputbox_border_color = (MAGENTA,BLACK,OFF)
+
+# Search box color: light gray on black bg
+searchbox_color = (WHITE,BLACK,OFF)
+
+# Search box title color: purple accent
+searchbox_title_color = (MAGENTA,BLACK,ON)
+
+# Search box border color: purple accent
+searchbox_border_color = (MAGENTA,BLACK,ON)
+
+# File position indicator color: cyan accent
+position_indicator_color = (CYAN,BLACK,ON)
+
+# Menu box color: light gray on black bg
+menubox_color = (WHITE,BLACK,OFF)
+
+# Menu box border color: purple accent
+menubox_border_color = (MAGENTA,BLACK,ON)
+
+# Item color: light gray on black bg
+item_color = (WHITE,BLACK,OFF)
+
+# Selected item color: black text on purple bg
+item_selected_color = (BLACK,MAGENTA,ON)
+
+# Tag color: cyan accent
+tag_color = (CYAN,BLACK,ON)
+
+# Selected tag color: black text on purple bg
+tag_selected_color = (BLACK,MAGENTA,ON)
+
+# Tag key color: red accent
+tag_key_color = (RED,BLACK,ON)
+
+# Selected tag key color: red on purple bg
+tag_key_selected_color = (RED,MAGENTA,ON)
+
+# Check box color: light gray
+check_color = (WHITE,BLACK,OFF)
+
+# Selected check box color: black on purple
+check_selected_color = (BLACK,MAGENTA,ON)
+
+# Up arrow color: green accent
+uarrow_color = (GREEN,BLACK,ON)
+
+# Down arrow color: green accent
+darrow_color = (GREEN,BLACK,ON)
+
+# Item help-text color: light gray
+itemhelp_color = (WHITE,BLACK,OFF)
+
+# Active form text color: white on purple bg
+form_active_text_color = (WHITE,MAGENTA,ON)
+
+# Form text color: white on black
+form_text_color = (WHITE,BLACK,ON)
+
+# Readonly form item color: cyan accent
+form_item_readonly_color = (CYAN,BLACK,ON)
