@@ -76,14 +76,8 @@ if __name__ == "__main__":
         # Get diff for file
         result = subprocess.run(["git", "diff", "--cached", f], capture_output=True, text=True)
         diff_text = result.stdout.strip()
-
-        if not diff_text:
-            print(f"[SKIP] {f} (no staged changes)", file=sys.stderr)
-            continue
-
         commit_msg = generate_commit_message(diff_text, tokenizer, model)
 
         print(f"[COMMIT] {f} → {commit_msg}", file=sys.stderr)
-
         # Commit just that file
         subprocess.run(["git", "commit", f, "-m", f"{commit_msg} -GPT2"])
