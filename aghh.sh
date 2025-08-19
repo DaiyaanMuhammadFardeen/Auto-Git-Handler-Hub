@@ -15,7 +15,7 @@ if [ -n "$LAST_REPO" ] && [ -d "$LAST_REPO/.git" ]; then
     SELECTED_REPO="$LAST_REPO"
 else
     # Run listRepos.sh to pick one
-    SELECTED_REPO=$(bash "$(dirname "$0")/listRepos.sh")
+    SELECTED_REPO=$(bash "$(dirname "$0")/Menu Options/listRepos.sh")
     if [ $? -ne 0 ] || [ -z "$SELECTED_REPO" ]; then
         clear
         echo "No repo selected. Exiting."
