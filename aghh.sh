@@ -1,23 +1,36 @@
 #!/bin/bash
 
-# Source the global menu map
-. ./globals.sh
+# Source global variables + menu map
+. "$(dirname "$0")/globals.sh"
 
-# Step 1: Run listRepos.sh to select repo
-SELECTED_REPO=$(bash ./listRepos.sh)
-if [ $? -ne 0 ]; then
-    clear
-    echo "No repo selected. Exiting."
-    exit 1
+# Step 1: Try to read last used repo
+if [ -f "$CACHE_FILE" ]; then
+    LAST_REPO=$(cat "$CACHE_FILE")
+else
+    LAST_REPO=""
 fi
 
-# Show selected repo for 3 seconds
-dialog --msgbox "You selected: $SELECTED_REPO" 10 50
+# Validate last repo (must be a git repo)
+if [ -n "$LAST_REPO" ] && [ -d "$LAST_REPO/.git" ]; then
+    SELECTED_REPO="$LAST_REPO"
+else
+    # Run listRepos.sh to pick one
+    SELECTED_REPO=$(bash "$(dirname "$0")/listRepos.sh")
+    if [ $? -ne 0 ] || [ -z "$SELECTED_REPO" ]; then
+        clear
+        echo "No repo selected. Exiting."
+        exit 1
+    fi
+    echo "$SELECTED_REPO" > "$CACHE_FILE"
+fi
 
+# Show selected repo briefly
+dialog --msgbox "Using repository: $SELECTED_REPO" 10 50
+
+# Step 2: Menu loop
 while true; do
-    # Step 2: Run navbar.sh to show menu and get numeric choice
-    NAV_CHOICE=$(bash ./navbar.sh)
-    EXITSTATUS=$?  # Capture immediately after dialog in navbar.sh returns
+    NAV_CHOICE=$(bash "$(dirname "$0")/navbar.sh")
+    EXITSTATUS=$?
 
     clear
 
@@ -26,19 +39,17 @@ while true; do
         continue
     fi
 
-  # If user chooses Exit (mapped as "exit"), break the loop
-  if [ $EXITSTATUS -ne 0 ] || [ "${MENU_MAP[$NAV_CHOICE]}" = "exit" ]; then
-      echo "Exiting program. Goodbye!"
-      break
-  fi
+    # If user chooses Exit
+    if [ $EXITSTATUS -ne 0 ] || [ "${MENU_MAP[$NAV_CHOICE]}" = "exit" ]; then
+        echo "Exiting program. Goodbye!"
+        break
+    fi
 
-  # Run the mapped script using bash
-  SCRIPT_PATH="${MENU_MAP[$NAV_CHOICE]}"
-  if [ -f "$SCRIPT_PATH" ]; then
-      bash "$SCRIPT_PATH"
-  else
-      echo "Script '$SCRIPT_PATH' not found!"
-  fi
-  clear
+    SCRIPT_PATH="${MENU_MAP[$NAV_CHOICE]}"
+    if [ -f "$SCRIPT_PATH" ]; then
+        (cd "$SELECTED_REPO" && bash "$SCRIPT_PATH")
+    else
+        echo "Script '$SCRIPT_PATH' not found!"
+    fi
+    clear
 done
-
