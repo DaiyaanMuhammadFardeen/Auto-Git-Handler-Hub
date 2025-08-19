@@ -7,7 +7,7 @@ while true; do
         --title "Automation Menu" \
         --menu "Select an automation to run:" 20 70 10 \
         1 "Smart commit all files using GPT2" \
-        2 "Auto format code" \
+        2 "Git Operations" \
         3 "Timed auto push" \
         4 "Auto run tests" \
         5 "Auto Docker Build" \
@@ -41,7 +41,8 @@ while true; do
             sleep 5
             ;;
         2)
-            echo "Running Auto format code..."
+            # Launch git operations script, passing cache file
+            bash "$(dirname "$0")/gitMenu.sh" "$CACHE_FILE"
             ;;
         3)
             echo "Running Timed auto push..."
