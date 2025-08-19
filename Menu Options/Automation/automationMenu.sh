@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Automation Menu for the selected Git repository
+CACHE_FILE="$HOME/.cache/aghh/lastRepoUsed.txt"
 
 while true; do
     CHOICE=$(dialog --clear \
@@ -24,12 +24,33 @@ while true; do
     fi
 
     case $CHOICE in
-        1) echo "Running Smart commit all files using GPT2...";;
-        2) echo "Running Auto format code...";;
-        3) echo "Running Timed auto push...";;
-        4) echo "Running Auto run tests...";;
-        5) echo "Running Auto Docker Build...";;
-    esac
+        1)
+            # Read repo path from cache
+            if [ -f "$CACHE_FILE" ]; then
+                REPO_PATH=$(cat "$CACHE_FILE")
+            else
+                dialog --msgbox "No last used repository found." 10 50
+                continue
+            fi
 
-    read -p "Press Enter to continue..."
+            # Run commitgen.sh with repo path
+            OUTPUT=$(bash "$(dirname "$0")/../../commitgen.sh" "$REPO_PATH" 2>&1)
+
+            # Show output in a dialog that auto-exits after 3s
+            dialog --title "Smart Commit" --infobox "$OUTPUT" 35 90
+            sleep 3
+            ;;
+        2)
+            echo "Running Auto format code..."
+            ;;
+        3)
+            echo "Running Timed auto push..."
+            ;;
+        4)
+            echo "Running Auto run tests..."
+            ;;
+        5)
+            echo "Running Auto Docker Build..."
+            ;;
+    esac
 done
