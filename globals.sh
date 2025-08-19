@@ -26,3 +26,4 @@ declare -A MENU_MAP=(
 
 CACHE_DIR="$HOME/.cache/aghh"
 REPO_LIST="$CACHE_DIR/repocache.txt"
+CACHE_FILE="$HOME/.cache/aghh/repocache.txt"
