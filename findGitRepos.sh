@@ -1,8 +1,6 @@
 #!/bin/sh
 
-CACHE_DIR="$HOME/.cache/aghh"
-REPO_LIST="$CACHE_DIR/repocache.txt"
-
+. ./globals.sh
 # Make sure the cache directory exists
 mkdir -p "$CACHE_DIR"
 
