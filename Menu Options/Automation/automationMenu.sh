@@ -38,7 +38,7 @@ while true; do
 
             # Show output in a dialog that auto-exits after 3s
             dialog --title "Smart Commit" --infobox "$OUTPUT" 35 90
-            sleep 3
+            sleep 5
             ;;
         2)
             echo "Running Auto format code..."
