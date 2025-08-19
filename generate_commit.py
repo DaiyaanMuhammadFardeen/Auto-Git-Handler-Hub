@@ -1,17 +1,15 @@
 import sys
 import os
+import subprocess
 import torch
 from transformers import GPT2TokenizerFast, AutoModelForCausalLM
 
-# Absolute path to your trained model (adjust as needed)
 MODEL_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "distilgpt2-commit-generator"))
-MODEL_MAX_LENGTH = 1024  # GPT-2's default max position embeddings
-MAX_NEW_TOKENS = 32      # tokens to generate after the prompt
+MODEL_MAX_LENGTH = 1024
+MAX_NEW_TOKENS = 32
 
 def clean_git_diff(diff_text, max_lines=100):
-    added_lines = []
-    removed_lines = []
-
+    added_lines, removed_lines = [], []
     metadata_prefixes = ('diff --git', 'index ', '--- ', '+++ ', '@@ ')
     for line in diff_text.splitlines():
         if line.startswith(metadata_prefixes):
@@ -31,12 +29,10 @@ def clean_git_diff(diff_text, max_lines=100):
         removed_lines = ["- None"]
 
     half_limit = max_lines // 2
-    added_lines = added_lines[:half_limit]
-    removed_lines = removed_lines[:half_limit]
-
-    return "\n".join(added_lines + removed_lines)
+    return "\n".join(added_lines[:half_limit] + removed_lines[:half_limit])
 
 def load_model():
+    print("Loading GPT2 model...", file=sys.stderr)
     tokenizer = GPT2TokenizerFast.from_pretrained(MODEL_DIR)
     model = AutoModelForCausalLM.from_pretrained(MODEL_DIR)
     model.eval()
@@ -66,18 +62,28 @@ def generate_commit_message(diff_text, tokenizer, model):
 
     generated_tokens = outputs[0][inputs["input_ids"].shape[1]:]
     commit_message = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
-    return commit_message.split("\n")[0]  # only first line
+    return commit_message.split("\n")[0]
 
 if __name__ == "__main__":
-    # Read diff from argument or stdin
-    if len(sys.argv) >= 2 and os.path.isfile(sys.argv[1]):
-        diff_path = sys.argv[1]
-        with open(diff_path, "r") as f:
-            diff_text = f.read()
-    else:
-        diff_text = sys.stdin.read()
+    if len(sys.argv) < 2:
+        print("[ERROR] No files passed", file=sys.stderr)
+        sys.exit(1)
 
+    files = sys.argv[1:]
     tokenizer, model = load_model()
-    commit_msg = generate_commit_message(diff_text, tokenizer, model)
-    print(commit_msg)
 
+    for f in files:
+        # Get diff for file
+        result = subprocess.run(["git", "diff", "--cached", f], capture_output=True, text=True)
+        diff_text = result.stdout.strip()
+
+        if not diff_text:
+            print(f"[SKIP] {f} (no staged changes)", file=sys.stderr)
+            continue
+
+        commit_msg = generate_commit_message(diff_text, tokenizer, model)
+
+        print(f"[COMMIT] {f} → {commit_msg}", file=sys.stderr)
+
+        # Commit just that file
+        subprocess.run(["git", "commit", f, "-m", f"{commit_msg} -GPT2"])
