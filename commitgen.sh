@@ -19,19 +19,21 @@ if [ $? -ne 0 ]; then
     cd "$CUR_DIR"
     exit 1
 fi
+
 # Stage all changes first
 git add -A
-# Get staged files
-FILES=$(git diff --cached --name-only)
 
-if [ -z "$FILES" ]; then
+# Get staged files safely into an array
+mapfile -t FILES < <(git diff --cached --name-only)
+
+if [ ${#FILES[@]} -eq 0 ]; then
     echo "[ERROR] No staged files to commit."
     cd "$CUR_DIR"
     exit 1
 fi
 
-# Run Python commit generator
-python3 ~/Desktop/Projects/Auto-Git-Handler-Hub/generate_commit.py $FILES
+# Run Python commit generator with each file
+python3 ~/Desktop/Projects/Auto-Git-Handler-Hub/generate_commit.py "${FILES[@]}"
 
 # Return to original directory
 cd "$CUR_DIR"
