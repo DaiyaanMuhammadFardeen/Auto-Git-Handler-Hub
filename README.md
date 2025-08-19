@@ -1,9 +1,9 @@
 # Auto-Git-Handler-Hub (AGHH) 🚀
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/Auto-Git-Handler-Hub)](https://github.com/yourusername/Auto-Git-Handler-Hub/issues)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/Auto-Git-Handler-Hub)](https://github.com/yourusername/Auto-Git-Handler-Hub/stargazers)
-[![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/Auto-Git-Handler-Hub)](https://github.com/yourusername/Auto-Git-Handler-Hub/commits/main)
+[![GitHub issues](https://img.shields.io/github/issues/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub)](https://github.com/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub/issues)
+[![GitHub stars](https://img.shields.io/github/stars/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub)](https://github.com/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub)](https://github.com/DaiyaanMuhammadFardeen/Auto-Git-Handler-Hub/commits/main)
 
 ---
 
