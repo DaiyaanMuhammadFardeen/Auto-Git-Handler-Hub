@@ -1,32 +1,37 @@
 #!/bin/bash
-# Automatically generate and commit a message using GPT2
-# Works from anywhere in any git repository
+# Smart commit each file individually with GPT2
+
+# If argument given, use it as repo root. Else fallback to pwd.
+if [ -n "$1" ]; then
+    REPO_ROOT="$1"
+else
+    REPO_ROOT=$(pwd)
+fi
 
 # Save current directory
 CUR_DIR=$(pwd)
 
-# Find the nearest git repo root
-REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
-if [ -z "$REPO_ROOT" ]; then
-    echo "[ERROR] Not inside a git repository."
+# Check if valid git repo
+cd "$REPO_ROOT" || { echo "[ERROR] Cannot cd into $REPO_ROOT"; exit 1; }
+git rev-parse --is-inside-work-tree >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "[ERROR] Not inside a git repository: $REPO_ROOT"
+    cd "$CUR_DIR"
+    exit 1
+fi
+# Stage all changes first
+git add -A
+# Get staged files
+FILES=$(git diff --cached --name-only)
+
+if [ -z "$FILES" ]; then
+    echo "[ERROR] No staged files to commit."
+    cd "$CUR_DIR"
     exit 1
 fi
 
-cd "$REPO_ROOT"
-
-# Save staged diff to temporary file
-TEMP_DIFF=$(mktemp)
-git diff --cached > "$TEMP_DIFF"
-
-# Call Python script (adjust path to your script as needed)
-COMMIT_MSG=$(python3 ~/Desktop/Projects/Auto-Git-Handler-Hub/generate_commit.py "$TEMP_DIFF")
-
-# Commit with generated message
-git commit -m "$COMMIT_MSG -GPT2"
-
-# Clean up
-rm -f "$TEMP_DIFF"
+# Run Python commit generator
+python3 ~/Desktop/Projects/Auto-Git-Handler-Hub/generate_commit.py $FILES
 
 # Return to original directory
 cd "$CUR_DIR"
-
