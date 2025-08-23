@@ -54,7 +54,7 @@ install_package() {
             sudo apt install -y "$pkg"
             ;;
         pacman)
-            sudo pacman -Sy --noconfirm "$pkg"
+            sudo yay -Sy --noconfirm "$pkg"
             ;;
         dnf)
             sudo dnf install -y "$pkg"
